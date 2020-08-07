@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
-import { FormControl, Select, MenuItem, InputLabel } from "@material-ui/core";
+import { FormControl, Select, MenuItem } from "@material-ui/core";
+import InfoBox from "./InfoBox";
+import Map from "./Map";
 import "./App.css";
 import { useState } from "react";
 
 function App() {
   const [countries, setCountries] = useState([]);
-  const [country, setCountry] = useState("worldWide");
+  const [country, setCountry] = useState("worlwide");
 
   useEffect(() => {
     const getCountriesData = async () => {
@@ -24,45 +26,31 @@ function App() {
 
   const onCountryChange = (event) => {
     const countryCode = event.target.value;
-
-    console.log("Yoooo >>>>>", countryCode);
+    setCountry(countryCode);
   };
   return (
     <div className="app">
       <div className="app__header">
         <h1>COVID-19 TRACKER</h1>
         <FormControl className="app__dropdown">
-          <InputLabel id="demo-simple-select-autowidth-label">
-            WorldWide
-          </InputLabel>
-          <Select
-            value={country}
-            variant="outlined"
-            labelId="demo-simple-select-autowidth-label"
-            onChange={onCountryChange}
-          >
+          <Select value={country} variant="outlined" onChange={onCountryChange}>
             <MenuItem value="worlwide">WorldWide</MenuItem>
             {countries.map((country) => (
               <MenuItem value={country.value}>{country.name}</MenuItem>
             ))}
-
-            {/* <MenuItem value="worlwide">WorldWide</MenuItem>
-            <MenuItem value="worlwide">Pakistan</MenuItem>
-            <MenuItem value="worlwide">England</MenuItem>
-            <MenuItem value="worlwide">Westindies</MenuItem>
-            <MenuItem value="worlwide">Ireland</MenuItem> */}
           </Select>
         </FormControl>
       </div>
 
-      {/* Header */}
-      {/* Title + select input drop down field */}
-      {/* InfoBoxes */}
-      {/* InfoBoxes */}
-      {/* InfoBoxes */}
+      <div className="app__stats">
+        <InfoBox title="CoronaVirus cases" cases={456} total={2000}></InfoBox>
+        <InfoBox title="Recovered" cases={456} total={3000}></InfoBox>
+        <InfoBox title="Deaths" cases={456} total={1000}></InfoBox>
+      </div>
+
       {/* Table */}
       {/* Graph */}
-      {/* Map */}
+      <Map />
     </div>
   );
 }
